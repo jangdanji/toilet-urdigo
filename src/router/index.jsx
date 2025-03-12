@@ -1,7 +1,8 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Route } from 'react-router-dom'
 import Root from '../layouts/Root'
-import Home from '../pages/Home'
-import About from '../pages/About'
+import Detail from '../pages/Detail'
+import ToiletList from '../pages/ToiletList'
+import MapView from '../pages/MapView'
 
 export const router = createBrowserRouter([
   {
@@ -10,11 +11,19 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <ToiletList />,
       },
       {
-        path: 'about',
-        element: <About />,
+        path: 'list',
+        element: <ToiletList />,
+      },
+      {
+        path: 'map/:id',
+        element: <MapView />,
+      },
+      {
+        path: 'detail/:id',
+        element: <Detail />,
       },
     ],
   },
