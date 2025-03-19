@@ -16,13 +16,12 @@ const NAVER_CLIENT_SECRET = process.env.VITE_NAVER_MAP_KEY;
 
 /**
  * 엑셀 파일을 읽어서 JSON 데이터로 변환하는 함수
- * @param {string} region - 지역명 (예: '서울', '부산' 등)
- * @returns {Object} - 변환된 JSON 데이터와 메타데이터
+ * only 로컬에서 데이터 올리는 작업
  */
 async function readExcelFile(region) {
   try {
     // Netlify 서버리스 함수에서 동작하진 않을 것 같음, 1차적으로 대량으로 데이터 넣는 건 로컬에서 진행하기
-    const fullPath = join(process.cwd(), 'netlify', 'functions', 'included_files', `${region}.xlsx`);
+    const fullPath = join(process.cwd(), 'netlify', 'functions', 'dataCollection', `${region}.xlsx`);
     
     console.log('엑셀 파일 경로:', fullPath);
     
@@ -60,8 +59,7 @@ async function readExcelFile(region) {
 
 /**
  * 데이터 구조를 변환하는 함수
- * @param {Array} data - 원본 데이터 배열
- * @returns {Array} - 변환된 데이터 배열
+ * only 로컬에서 데이터 올리는 작업
  */
 function transformData(data) {
   return data.map(item => {
@@ -100,6 +98,12 @@ function transformData(data) {
 }
 
 exports.handler = async function(event, context) {
+
+  // 화장실 데이터 출처
+  // https://www.localdata.go.kr/lif/lifeCtacDataView.do
+
+  throw new Error('데이터 추가는 로컬에서만 진행');
+
   try {
 
     // const regions = ['서울', '부산', '인천', '대구', '광주', '대전', '울산', '세종', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주']
@@ -114,7 +118,7 @@ exports.handler = async function(event, context) {
       }
     }
 
-    // 데이터 구조 변환
+    // DB에 넣게 데이터 구조 변환
     const mappedData = transformData(rawData);
     console.log(`총 ${rawData.length}개 데이터를 변환했습니다.`);
 
@@ -132,12 +136,11 @@ exports.handler = async function(event, context) {
 
     for (const [index, item] of mappedData.entries()) {
 
+      console.log('진행도 :', `${index+1} / ${mappedData.length}`);
+
       // 만약 좌표값이 없으면, 네이버 지오코딩 API 호출하고 좌표값 추가하기
 
       if (item.lat === "" || item.lng === "") {
-        
-
-        console.log('지오코딩 API 호출:', `${index+1} / ${mappedData.length}`);
 
         const response = await axios.get('https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode', {
           params: {
@@ -153,19 +156,28 @@ exports.handler = async function(event, context) {
         try {
           const x = response.data.addresses[0].x;
           const y = response.data.addresses[0].y;
-          const address = response.data.addresses[0].roadAddress;
+          // const address = response.data.addresses[0].roadAddress;
 
-          item.lat = x;
-          item.lng = y;
+          item.lng = x; // 위도는 x축
+          item.lat = y; // 경도는 y축
+          
+          // 지오코딩 API를 통해 좌표값을 얻은 후 데이터베이스에 upsert
+          const { data, error } = await supabase
+            .from('toilets')
+            .upsert(item, {
+              onConflict: ['name', 'address', 'management'] // 이름, 주소, 관리기관명에서 충돌 감지
+            })
+            .select();
+            
+          if (error) {
+            console.error('지오코딩 후 데이터 저장 중 오류 발생:', error);
+          }
 
         } catch (error) {
           console.error('지오코딩 API 호출 중 오류 발생:', error);
 
-          // console.log('오류가 발생한 데이터:', item)
           // const errorData = rawData.find(data => data['소재지도로명주소'] === item.address || data['소재지지번주소'] === item.address)
           // console.log('오류가 발생한 원본 데이터:', errorData)
-
-          // throw new Error('지오코딩 API 호출 중 오류 발생');
 
           const { data } = await supabase // 에러나는 주소 모아놓기
           .from('error_log')
@@ -187,12 +199,7 @@ exports.handler = async function(event, context) {
         .select();
       }
 
-
     }
-
-
-
-    // 데이터 insert
 
     return {
       statusCode: 200,

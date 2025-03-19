@@ -17,7 +17,7 @@
 
 [functions]
   node_bundler = "esbuild"
-  included_files = ["netlify/included_files/**"]
+  included_files = ["functions/included_files/**", "data_pipeline/**"]
 
 [[redirects]]
   from = "/*"

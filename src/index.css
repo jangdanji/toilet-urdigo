@@ -119,22 +119,9 @@
 @tailwind utilities;
 
 @layer utilities {
-  .animate-slide-up {
-    animation: slide-up 0.2s ease-out forwards;
-    transform: translateY(100%);
-  }
-
-  @keyframes slide-up {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
 
   .fade-in {
-    animation: fade-in 0.3s ease-in-out forwards;
+    animation: fade-in 0.2s ease-in-out forwards;
   }
   
   @keyframes fade-in {
@@ -147,7 +134,7 @@
   }
   
   .fade-out {
-    animation: fade-out 0.3s ease-in-out forwards;
+    animation: fade-out 0.2s ease-in-out forwards;
   }
   
   @keyframes fade-out {
@@ -168,3 +155,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* body {
+  overflow: hidden;
+} */

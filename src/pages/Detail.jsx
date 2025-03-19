@@ -6,6 +6,12 @@ export default function Detail() {
   const navigate = useNavigate();
   const [selectedToiletInfo, setSelectedToiletInfo] = useState(null);
 
+  const { setRecentToilet } = useToiletStore();
+
+  useEffect(() => {
+    setRecentToilet(id);
+  }, [id]);
+
   // CSV 파일에서 가져온 화장실 데이터 (실제로는 API나 데이터베이스에서 가져올 것입니다)
   const items = [
     {

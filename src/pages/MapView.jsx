@@ -1,11 +1,18 @@
 // MapView.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import useToiletStore from '../store/toiletStore';
 
 export default function MapView() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedToiletInfo, setSelectedToiletInfo] = useState(null);
+
+  const { setRecentToilet } = useToiletStore();
+
+  useEffect(() => {
+    setRecentToilet(id);
+  }, [id]);
 
   // CSV 파일에서 가져온 화장실 데이터
   const items = [
