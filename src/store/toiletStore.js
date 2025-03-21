@@ -1,27 +1,31 @@
 import { create } from 'zustand';
 
-// 최근 확인한 화장실
 const useToiletStore = create((set) => ({
 
-    // 위도, 경도, 주소
+    // 위도, 경도
     location: { lat: null, lng: null },
+
+    // 주소
     address: null,
     
+    // 화장실 관련 상태
+    toilets: [], // 프론트 단에 저장된 화장실 목록
+    recentToilet: [], // 최근 확인한 화장실
+    
+    // 액션/메서드들...
+
     setLocation: async (lat, lng) => set({ location: { lat, lng }}),
     setAddress: (address) => set({ address }),
     resetLocation: () => set({ location: { lat: null, lng: null }, address: null }),
 
-    // 최근 확인한 화장실
-    recentToilet: [],
     setRecentToilet: (toiletId) => {
         set({ recentToilet: toiletId });
     },
 
-    toilets: [],
-
     getToilets: async (page = 1) => {
 
-        const { lat, lng } = useToiletStore.getState().location;
+        const { location } = get();
+        const { lat, lng } = location;
 
         if (!lat || !lng) {
             console.log("좌표가 설정되지 않았습니다.");
@@ -38,7 +42,6 @@ const useToiletStore = create((set) => ({
         };
 
         const queryString = new URLSearchParams(param).toString();
-        
         const response = await fetch(`/.netlify/functions/getToilets?${queryString}`);
 
         if (!response.ok) {
