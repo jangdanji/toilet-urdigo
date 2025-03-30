@@ -2,17 +2,16 @@ import axios from 'axios';
 import { createClient } from '@supabase/supabase-js'
 
 // Supabase 설정
-const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL
-const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // 네이버 API 키 설정
-const NAVER_CLIENT_ID = process.env.NAVER_MAP_ID || process.env.VITE_NAVER_MAP_ID;
-const NAVER_CLIENT_SECRET = process.env.NAVER_MAP_KEY || process.env.VITE_NAVER_MAP_KEY;
+const NAVER_CLIENT_ID = process.env.NAVER_MAP_ID;
+const NAVER_CLIENT_SECRET = process.env.NAVER_MAP_KEY;
 
 // 국토교통부 브이월드 API
-const VWORLD_KEY = process.env.VWORLD_KEY || process.env.VITE_VWORLD_KEY;
-const SITE_URL = process.env.URL || process.env.VITE_URL || 'https://toilet-urdigo.netlify.app';
+const VWORLD_KEY = process.env.VWORLD_KEY;
 
 const naverApi = axios.create({
     baseURL: 'https://naveropenapi.apigw.ntruss.com',
