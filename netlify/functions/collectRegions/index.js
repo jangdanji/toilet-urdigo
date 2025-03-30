@@ -2,8 +2,8 @@
 import axios from 'axios'
 
 // 환경 변수
-const VWORLD_KEY = process.env.VITE_VWORLD_KEY;
-const SITE_URL = process.env.VITE_URL;
+const VWORLD_KEY = process.env.VWORLD_KEY || process.env.VITE_VWORLD_KEY;
+const SITE_URL = process.env.URL || process.env.VITE_URL || 'https://toilet-urdigo.netlify.app';
 
 export const handler = async (event, context) => {
   try {

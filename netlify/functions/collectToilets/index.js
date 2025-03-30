@@ -6,13 +6,13 @@ import { existsSync } from 'fs';
 import axios from 'axios';
 
 // Supabase 설정
-const supabaseUrl = process.env.VITE_SUPABASE_URL
-const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 // 네이버 API 키 설정
-const NAVER_CLIENT_ID = process.env.VITE_NAVER_MAP_ID;
-const NAVER_CLIENT_SECRET = process.env.VITE_NAVER_MAP_KEY;
+const NAVER_CLIENT_ID = process.env.NAVER_MAP_ID || process.env.VITE_NAVER_MAP_ID;
+const NAVER_CLIENT_SECRET = process.env.NAVER_MAP_KEY || process.env.VITE_NAVER_MAP_KEY;
 
 /**
  * 엑셀 파일을 읽어서 JSON 데이터로 변환하는 함수
