@@ -4,10 +4,11 @@ import { create } from 'zustand';
 const useRegionStore = create((set) => ({
 
   regions: [],
+  isLoading: false,
 
   fetchRegions: async () => {
 
-    set({ regions: [] });
+    set({ regions: [], isLoading: true });
     
     try {
       const response = await fetch('/.netlify/functions/getRegions');
@@ -16,10 +17,10 @@ const useRegionStore = create((set) => ({
         value: region.name,
         label: region.name
       }));
-      set({ regions });
+      set({ regions, isLoading: false });
     } catch (error) {
       console.error('지역 정보 로딩 오류:', error);
-      set({ regions: [] });
+      set({ regions: [], isLoading: false });
     }
   }
 }));

@@ -42,43 +42,31 @@ export const getReverseGeocode = async (lat, lng) => {
   const params = {
     coords: `${lng},${lat}`,
     output: 'json',
-    orders: 'legalcode'
+    orders: 'addr'
   };
   const response = await naverApi.get(`/map-reversegeocode/v2/gc`, { params });
   
-  // 가장 세부적인 좌표값 추출 로직
-  let detailedCoords = { x: lat, y: lng }; // 기본값으로 입력받은 좌표 사용
-  
   try {
     const result = response.data.results[0];
+
+    console.log("result : ", result)
+
+    // 주소 문자열 생성 (area0은 국가코드이므로 제외)
+    let address = '';
+    const region = result.region;
     
-    // 가장 세부적인 유효한 지역 찾기
-    for (let i = 4; i >= 0; i--) {
+    // area1부터 area4까지 순서대로 주소 생성 (비어있지 않은 경우만)
+    for (let i = 1; i <= 4; i++) {
       const areaKey = `area${i}`;
-      const area = result.region[areaKey];
-      
-      // 좌표가 유효한지 확인 (이름이 있고 좌표가 0,0이 아닌 경우)
-      if (area && area.name && 
-          area.coords && area.coords.center && 
-          (area.coords.center.x !== 0 || area.coords.center.y !== 0)) {
-        
-        detailedCoords = {
-          x: area.coords.center.x,
-          y: area.coords.center.y,
-          name: area.name
-        };
-        break;
+      if (region[areaKey] && region[areaKey].name) {
+        address += (address ? ' ' : '') + region[areaKey].name;
       }
     }
     
-    return {
-      detailedCoords
-    };
+    return { address };
   } catch (error) {
     console.error('Error extracting detailed coordinates:', error);
-    return {
-      detailedCoords
-    };
+    return { address: null };
   }
 };
 
@@ -130,7 +118,7 @@ export const getToilets = async (params) => {
   /*
     수파베이스에서는 지리 데이터 처리 확장 기능 postgis를 지원함 
     기능 활성화 : CREATE EXTENSION postgis WITH SCHEMA extensions;
-    좌표 저장할 때 컬럼에 `geography(POINT)` 타입을 써야 postGIS 함수들 사용 가능
+    좌표 저장할 때 컬럼에 ` ` 타입을 써야 postGIS 함수들 사용 가능
 
   */
 
@@ -142,5 +130,42 @@ export const getToilets = async (params) => {
   } else {
     console.log('Nearest toilets:', data);
     return { data, error: null };
+  }
+};
+
+export const getMap = async () => {
+
+  const params = {
+    crs: 'EPSG:4326',
+    center: '127.1054221,37.3591614',
+    level: 10,
+    w: 1024,
+    h: 1024,
+    maptype: 'basic',
+    format: 'jpeg',
+    scale: 2,
+    // markers: 'pos:126.9810479%2037.5695075',
+    lang: 'ko'
+  }
+
+  try {
+    const response = await naverApi.get('/map-static/v2/raster', { params, responseType: 'arraybuffer' });
+    // 이미지 데이터를 Base64로 인코딩하여 반환
+    return Buffer.from(response.data, 'binary').toString('base64');
+
+  } catch (error) {
+    console.error('Error fetching map:', error);
+    return { data: null, error };
+  }
+};
+
+export const getToiletDetails = async (id) => {
+  const { data, error } = await supabase.rpc('get_toilet_details', { toilet_id: id });
+
+  if (error) {
+    console.error('Error fetching toilet details:', error);
+    return { data: null, error };
+  } else {
+    return { data: data[0], error: null };
   }
 };

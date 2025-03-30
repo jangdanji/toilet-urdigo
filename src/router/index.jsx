@@ -14,10 +14,6 @@ export const router = createBrowserRouter([
         element: <ToiletList />,
       },
       {
-        path: 'list',
-        element: <ToiletList />,
-      },
-      {
         path: 'map/:id',
         element: <MapView />,
       },

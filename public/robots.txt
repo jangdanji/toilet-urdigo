@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://toilet-urdigo.netlify.app/sitemap.xml
