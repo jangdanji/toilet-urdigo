@@ -38,7 +38,7 @@ export default function Detail() {
   };
 
   if (isLoadingGlobal) {
-    return <Loading message="화장실 정보를 불러오는 중입니다..." />;
+    return <Loading message="화장실 정보 불러오는 중..." />;
   }
 
   if (!selectedToilet || !selectedToilet.id) {

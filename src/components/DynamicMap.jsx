@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 
 function DynamicMap({ lat, lng }) {
-
   const mapRef = useRef(null);
   
   useEffect(() => {
@@ -27,13 +26,7 @@ function DynamicMap({ lat, lng }) {
             map: map,
             icon: {
               content: `
-                <div style="
-                  position: relative; 
-                  width: 48px; 
-                  height: 48px;
-                  transform-origin: center bottom;
-                  animation: bounce 1s infinite alternate;
-                ">
+                <div class="marker-bounce">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4F46E5" width="48" height="48" style="filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                   </svg>
@@ -43,21 +36,10 @@ function DynamicMap({ lat, lng }) {
             }
           };
           
-          // 스타일 추가
-          const style = document.createElement('style');
-          style.textContent = `
-            @keyframes bounce {
-              0% { transform: translateY(0); }
-              100% { transform: translateY(-6px); }
-            }
-          `;
-          document.head.appendChild(style);
-          
           // 마커 생성
           new window.naver.maps.Marker(markerOptions);
         }
     };
-
 
     document.head.appendChild(script);
     

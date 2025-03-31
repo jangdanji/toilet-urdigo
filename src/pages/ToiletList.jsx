@@ -130,6 +130,15 @@ export default function ToiletList() {
     console.log('currentPage', currentPage);
   }, [currentPage]);
 
+  // 로딩 상태 추적을 위한 useEffect
+  useEffect(() => {
+    console.log(' 로딩 상태 변경: isLoadingGlobal =', isLoadingGlobal);
+  }, [isLoadingGlobal]);
+
+  useEffect(() => {
+    console.log(' 로딩 상태 변경: isLoadingToiletList =', isLoadingToiletList);
+  }, [isLoadingToiletList]);
+
   const handleResetScrollTop = () => {
     toiletListRef.current.scrollTop = 0;
   };
@@ -189,9 +198,10 @@ export default function ToiletList() {
                 
                 {/* 로딩 표시 및 Intersection Observer 타겟 */}
                 <li id='toilet-loading' ref={loadingRef} className="py-4 text-center">
-                  {isLoadingToiletList && (
+                  {(
                     <div className="flex justify-center items-center py-2">
-                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+                      <div className="animate-spin rounded-full h-6 w-6 border-b-4 border-indigo-500 mr-3"></div>
+                      <span className="text-gray-500 text-xs">불러오는 중..</span>
                     </div>
                   )}
                   {!hasMoreData && toilets.length > 0 && (

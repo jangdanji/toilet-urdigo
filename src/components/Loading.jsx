@@ -12,23 +12,6 @@ const Loading = ({ message = '로딩 중...' }) => {
         <p className="mt-4 text-base text-gray-700 font-medium">{message}</p>
         <p className="text-xs text-gray-500 mt-1">잠시만 기다려 주세요!</p>
       </div>
-      
-      <style>
-        {`
-          @keyframes bounce {
-            0%, 100% {
-              transform: translateY(-5px);
-            }
-            50% {
-              transform: translateY(5px);
-            }
-          }
-          
-          .toilet-bounce {
-            animation: bounce 0.5s ease-in-out infinite;
-          }
-        `}
-      </style>
     </div>
   );
 };

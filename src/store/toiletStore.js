@@ -49,7 +49,7 @@ const useToiletStore = create(zukeeper((set, get) => ({
         }
 
         try {
-            set({ isLoadingToiletList: true });
+            set({ isLoadingToiletList: true, isLoadingGlobal: page === 1 });
 
             const limit = 10;
             const param = {
@@ -71,7 +71,8 @@ const useToiletStore = create(zukeeper((set, get) => ({
                 toilets: page === 1 ? newData : [...toilets, ...newData], 
                 currentPage: page,
                 hasMoreData: pagination.hasMore,
-                isLoadingToiletList: false
+                isLoadingToiletList: false,
+                isLoadingGlobal: false
             });
 
             if (page === 1) {
@@ -79,7 +80,7 @@ const useToiletStore = create(zukeeper((set, get) => ({
             }
 
         } catch (error) {
-            set({ isLoadingToiletList: false, hasMoreData: false });
+            set({ isLoadingToiletList: false, hasMoreData: false, isLoadingGlobal: false });
             throw error;
         }
     },
@@ -112,7 +113,7 @@ const useToiletStore = create(zukeeper((set, get) => ({
                 set({ selectedToilet: null })
                 
                 await get().getToilets(1);
-                set({ isLoadingGlobal: false });
+                // set({ isLoadingGlobal: false });
                 return result;
             } else {
                 set({ isLoadingGlobal: false });
@@ -169,8 +170,6 @@ const useToiletStore = create(zukeeper((set, get) => ({
                             break;
                         }
 
-                        set({ isLoadingGlobal: false });
-                        
                         // 화면에 오류 메시지 표시
                         alert(errorMessage);
                         console.error('위치 정보 오류:', error.message, error.code);
@@ -193,9 +192,9 @@ const useToiletStore = create(zukeeper((set, get) => ({
             const address = data.address;
 
             set({ address: address, location: { lat, lng }});
-            set({ isLoadingGlobal: false });
 
             await get().getToilets(1);
+            // set({ isLoadingGlobal: false });
 
         } else {
             set({ isLoadingGlobal: false });

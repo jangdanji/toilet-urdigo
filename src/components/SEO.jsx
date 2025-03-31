@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async';
 export const ToiletListSEO = () => {
   return (
     <Helmet>
-      <title>화장실어디고 | 내 주변 공중화장실 찾기</title>
+      <title>화장실어디고 | 내 주변 화장실 찾기</title>
       <meta 
         name="description" 
         content="주변 화장실을 빠르게 찾을 수 있는 서비스입니다." 
@@ -16,7 +16,7 @@ export const ToiletListSEO = () => {
       <link rel="canonical" href="https://toilet-urdigo.netlify.app/" />
       
       {/* 오픈 그래프 태그 */}
-      <meta property="og:title" content="화장실어디고 | 내 주변 공중화장실 찾기" />
+      <meta property="og:title" content="화장실어디고 | 내 주변 화장실 찾기" />
       <meta 
         property="og:description" 
         content="가까운 화장실을 빠르게 찾을 수 있는 서비스입니다." 
@@ -27,7 +27,7 @@ export const ToiletListSEO = () => {
       
       {/* 트위터 카드 */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="화장실어디고 | 내 주변 공중화장실 찾기" />
+      <meta name="twitter:title" content="화장실어디고 | 내 주변 화장실 찾기" />
       <meta 
         name="twitter:description" 
         content="가까운 화장실을 빠르게 찾을 수 있는 서비스입니다." 
@@ -51,12 +51,12 @@ export const DetailSEO = ({ selectedToilet, id }) => {
   
   return (
     <Helmet>
-      <title>{selectedToilet.name} | 화장실어디고</title>
+      <title>{selectedToilet.name} | 화장실 위치</title>
       <meta name="description" content="화장실 상세 정보" />
       <meta name="keywords" content={`${selectedToilet.name}, 화장실 정보, 공중화장실`} />
       
       {/* 오픈 그래프 태그 */}
-      <meta property="og:title" content={`${selectedToilet.name} | 화장실어디고`} />
+      <meta property="og:title" content={`${selectedToilet.name} | 화장실 위치`} />
       <meta property="og:description" content="화장실 상세 정보" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`https://toilet-urdigo.netlify.app/detail/${id}`} />
@@ -64,7 +64,7 @@ export const DetailSEO = ({ selectedToilet, id }) => {
       
       {/* 트위터 카드 */}
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={`${selectedToilet.name} | 화장실어디고`} />
+      <meta name="twitter:title" content={`${selectedToilet.name} | 화장실 위치`} />
       <meta name="twitter:description" content={`${selectedToilet.name} 상세 정보`} />
     </Helmet>
   );
@@ -85,12 +85,12 @@ export const MapViewSEO = ({ selectedToilet, id }) => {
   
   return (
     <Helmet>
-      <title>{`${selectedToilet.name} 위치 | 화장실어디고`}</title>
+      <title>{`${selectedToilet.name} | 화장실 위치`}</title>
       <meta name="description" content={`${selectedToilet.name} 지도를 확인하세요.`} />
       <meta name="keywords" content={`${selectedToilet.name}, 화장실 위치, 화장실 지도`} />
       
       {/* 오픈 그래프 태그 */}
-      <meta property="og:title" content={`${selectedToilet.name} 위치 | 화장실어디고`} />
+      <meta property="og:title" content={`${selectedToilet.name} | 화장실 위치`} />
       <meta property="og:description" content={`${selectedToilet.name} 지도를 확인하세요.`} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`https://toilet-urdigo.netlify.app/map/${id}`} />
@@ -98,7 +98,7 @@ export const MapViewSEO = ({ selectedToilet, id }) => {
       
       {/* 트위터 카드 */}
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={`${selectedToilet.name} 위치 | 화장실어디고`} />
+      <meta name="twitter:title" content={`${selectedToilet.name} | 화장실 위치`} />
       <meta name="twitter:description" content={`${selectedToilet.name} 지도를 확인하세요.`} />
     </Helmet>
   );

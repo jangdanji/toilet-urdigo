@@ -88,7 +88,8 @@ const SimpleAutocomplete = ({
           <ul className="py-1">
             {isLoading && (
               <li className="flex items-center justify-center px-4 py-2 text-gray-500 hover:bg-gray-100">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+                <div className="animate-spin rounded-full h-6 w-6 border-b-4 border-indigo-500 mr-3"></div>
+                <span className="text-gray-500 text-xs">불러오는 중..</span>
               </li>
             )}
             {!isLoading && filteredOptions.length === 0 && (
