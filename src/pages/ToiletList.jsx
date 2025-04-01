@@ -11,7 +11,7 @@ import styled from 'styled-components';
 
 
 export const StyledBackground = styled.div`
-  background-image: url("/.netlify/functions/getMap");
+  background-image: url("/images/map-background.jpg");
   width: 100%;
   height: 100%;
   position: absolute;
