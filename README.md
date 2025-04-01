@@ -1,8 +1,15 @@
-# React + Vite
+화장실어디고 - 주변 화장실 찾기 웹 서비스
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+toilet-urdigo.netlify.app
 
-Currently, two official plugins are available:
+사용 기술 :
+  - React + Vite
+  - Zustand
+  - Tailwind CSS 4, Styled Components
+  - 네이버 지도 API
+  - Supabase
+  - Netlify, Netlify Functions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+데이터 제공 : 
+https://www.localdata.go.kr/lif/lifeCtacDataView.do
