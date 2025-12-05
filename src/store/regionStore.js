@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { supabase } from '../lib/supabaseClient';
 
 // 좌표 정보
 const useRegionStore = create((set) => ({
@@ -9,11 +10,15 @@ const useRegionStore = create((set) => ({
   fetchRegions: async () => {
 
     set({ regions: [], isLoading: true });
-    
+
     try {
-      const response = await fetch('/.netlify/functions/getRegions');
-      const result = await response.json();
-      const regions = result.data.map(region => ({
+      const { data, error } = await supabase
+        .from('regions')
+        .select('*');
+
+      if (error) throw error;
+
+      const regions = data.map(region => ({
         value: region.name,
         label: region.name
       }));

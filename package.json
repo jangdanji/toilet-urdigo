@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "dev:netlify": "netlify dev"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.4",
@@ -19,8 +18,6 @@
     "@radix-ui/react-select": "^2.1.6",
     "@supabase/supabase-js": "^2.49.1",
     "@tailwindcss/vite": "^4.0.9",
-    "@tanstack/react-query": "^5.70.0",
-    "axios": "^1.8.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.476.0",
@@ -33,7 +30,6 @@
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.9",
     "tailwindcss-animate": "^1.0.7",
-    "xlsx": "^0.18.5",
     "zukeeper": "^1.0.2",
     "zustand": "^5.0.3"
   },
@@ -48,7 +44,6 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
-    "netlify-cli": "^19.0.2",
     "vite": "^6.1.0"
   }
 }

@@ -23,7 +23,7 @@ export const StyledBackground = styled.div`
 export default function ToiletList() {
 
   const navigate = useNavigate();
-  
+
   // Zustand 스토어
   const {
     toilets,
@@ -72,7 +72,7 @@ export default function ToiletList() {
       toiletListRef.current.scrollTop = parseInt(position);
     } else localStorage.removeItem('toiletListScrollPosition');
   }, [])
-    
+
   // 추가 데이터 로드
   const loadMoreToilets = async () => {
     console.log('loadMoreToilets 호출');
@@ -146,9 +146,9 @@ export default function ToiletList() {
   return (
     <div id='root-container' className='flex flex-col w-[calc(90%)]'>
       <ToiletListSEO address={address} />
-      
+
       <StyledBackground id='background' className='w-full h-full opacity-50' />
-      {isLoadingGlobal &&<Loading message="페이지 로딩 중" />}
+      {isLoadingGlobal && <Loading message="페이지 로딩 중" />}
       <div id='toilet' className="container w-full h-[calc(100vh)] py-22 mx-auto flex justify-center items-center flex-col md:min-w-[768px] z-10">
         <div className="w-full max-w-4xl py-4 flex items-center justify-between">
           <SimpleAutocomplete
@@ -156,9 +156,9 @@ export default function ToiletList() {
             className='content-center'
             onSelect={() => handleResetScrollTop()}
           />
-          <button 
+          <button
             className="ml-2 py-2 px-4 bg-indigo-500 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-colors text-sm flex items-center cursor-pointer"
-            onClick={() => {updateCurrentAddress(); handleResetScrollTop();}}  
+            onClick={() => { updateCurrentAddress(); handleResetScrollTop(); }}
             title="현재 위치로 검색"
           >
             <MdMyLocation className="h-4 w-4" />
@@ -167,23 +167,23 @@ export default function ToiletList() {
 
         <div id='toilet-container' className="w-full h-full min-h-full max-w-4xl bg-white rounded-lg shadow-lg flex flex-col">
           {/* 화장실 리스트 */}
-          <div 
-            id='toilet-list' 
+          <div
+            id='toilet-list'
             className='w-full h-full min-h-full p-4 overflow-y-auto'
             ref={toiletListRef}
           >
             {toilets.length > 0 ? (
-              <ul className="space-y-2 h-full min-h-full">
+              <ul className="space-y-2 h-full min-h-full" >
                 {toilets.map((toilet) => (
                   <li
-                      // key={toilet.id}
-                      data-id={toilet.id}
-                      className={`p-3 rounded-md shadow-sm cursor-pointer transition-colors`}
-                      onClick={() => handleToiletClick(toilet)}
-                      style={{
-                        backgroundColor: selectedToilet?.id == toilet.id ? '#e5e7eb' : '#f9fafb'
-                      }}
-                    >
+                    key={toilet.id + "_" + toilet.name}
+                    data-id={toilet.id}
+                    className={`p-3 rounded-md shadow-sm cursor-pointer transition-colors`}
+                    onClick={() => handleToiletClick(toilet)}
+                    style={{
+                      backgroundColor: selectedToilet?.id == toilet.id ? '#e5e7eb' : '#f9fafb'
+                    }}
+                  >
                     <div className="flex justify-between items-center">
                       <span className="font-medium">{toilet.name}</span>
                       <span className="text-sm text-indigo-500 font-medium">{formatDistance(toilet.distance)}</span>
@@ -195,7 +195,7 @@ export default function ToiletList() {
                     </div>
                   </li>
                 ))}
-                
+
                 {/* 로딩 표시 및 Intersection Observer 타겟 */}
                 <li id='toilet-loading' ref={loadingRef} className="py-4 text-center">
                   {(
@@ -216,7 +216,7 @@ export default function ToiletList() {
                 </div>
                 <h2 className="text-xl font-bold text-gray-700 mb-2">주변 화장실을 찾을 수 있습니다!</h2>
                 <p className="text-gray-500 mb-6">주소 입력 또는 위치 정보를 허용하여 주변 화장실을 찾아보세요.</p>
-                <button 
+                <button
                   className="py-3 px-6 bg-indigo-500 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-colors flex items-center cursor-pointer"
                   onClick={setCurrentAddress}
                 >
