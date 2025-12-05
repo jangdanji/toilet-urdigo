@@ -36,6 +36,7 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_NAVER_MAP_ID: ${{ secrets.VITE_NAVER_MAP_ID }}
+          VITE_NAVER_MAP_KEY: ${{ secrets.VITE_NAVER_MAP_KEY }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
