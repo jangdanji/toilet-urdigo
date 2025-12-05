@@ -6,10 +6,8 @@ https://toilet-urdigo.netlify.app
   - React + Vite
   - Zustand
   - Tailwind CSS 4, Styled Components
-  - 네이버 지도 API
+  - 네이버 지도 API (Maps)
   - Supabase
-  - Netlify, Netlify Functions
-
 
 데이터 제공 : 
 https://www.localdata.go.kr/lif/lifeCtacDataView.do
