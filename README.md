@@ -1,6 +1,6 @@
 # 화장실어디고 - 주변 화장실 찾기 웹 서비스
 
-https://toilet-urdigo.netlify.app
+toilet-urdigo.netlify.app
 
 사용 기술 :
   - React + Vite
